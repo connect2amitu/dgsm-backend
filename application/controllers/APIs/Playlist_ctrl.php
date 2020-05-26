@@ -52,7 +52,7 @@ class Playlist_Ctrl extends My_Controller {
 					}
 				}
 			}else{
-				$resp=array( 'message'=>"Playlist created Failed", 'data'=>array(), 'status'=>500, );
+				$resp=array( 'message'=>"Playlist created Failed", 'data'=>array(), 'status'=>500);
 			}
 			$this->response($resp);
 		}
@@ -137,4 +137,25 @@ class Playlist_Ctrl extends My_Controller {
 			$this->response($resp);
 	}
 		
+	public function removePlaylist(){
+
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$user 		= $this->checkAuth();
+			$user_id  = $user->id;
+			$playlist_id=$this->input->post('playlistId', TRUE);
+			$data=array(
+									'id'=>$playlist_id,
+									'user_id'=>$user_id
+			);
+			if($playlist_id = $this->playlist->remove($data)){
+				$resp=array(
+					'message'=>"Playlist deleted ", 
+					'status'=>200 
+				);
+			}else{
+				$resp=array( 'message'=>"Playlist not deleted", 'status'=>500);
+			}
+			$this->response($resp);
+		}
+	}
 }

@@ -56,9 +56,9 @@ class My_Controller extends CI_Controller
 	function response($response)
 	{
 		header("HTTP/1.1 ".$response['status']);
-
 		$json_response = json_encode($response,JSON_NUMERIC_CHECK);
 		echo $json_response;
+		die;
 	}
 	
 	/**
