@@ -93,7 +93,7 @@ class Playlist_Ctrl extends My_Controller {
 
 			$user 		= $this->checkAuth();
 			$user_id  = $user->id;
-			$id = $this->input->post('trackId', TRUE);
+			$id = $this->input->post('track_id', TRUE);
 
 			if($this->playlist->removeTrackFromPlaylist(array('id' => $id, 'user_id'=>$user_id))){
 				$resp=array(
@@ -142,7 +142,7 @@ class Playlist_Ctrl extends My_Controller {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$user 		= $this->checkAuth();
 			$user_id  = $user->id;
-			$playlist_id=$this->input->post('playlistId', TRUE);
+			$playlist_id=$this->input->post('playlist_id', TRUE);
 			$data=array(
 									'id'=>$playlist_id,
 									'user_id'=>$user_id
@@ -151,6 +151,34 @@ class Playlist_Ctrl extends My_Controller {
 				$resp=array(
 					'message'=>"Playlist deleted ", 
 					'status'=>200 
+				);
+			}else{
+				$resp=array( 'message'=>"Playlist not deleted", 'status'=>500);
+			}
+			$this->response($resp);
+		}
+	}
+	
+	public function renamePlaylist(){
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			$user 		= $this->checkAuth();
+			$user_id  = $user->id;
+			$playlist_id=$this->input->post('playlist_id', TRUE);
+			$name=$this->input->post('name', TRUE);
+			$data=array(
+									'id'=>$playlist_id,
+									'user_id'=>$user_id
+			);
+			$newData = array('name'=> $name);
+			if($this->playlist->edit($newData, $data)){
+				// $tracks = $this->playlist->getPlaylistDetail(array('playlists.user_id' => $user_id,'playlists.id' => $playlist_id,'tracks.id!=' => null));
+				// $playlist = $this->playlist->get(array('playlists.user_id' => $user_id,'playlists.id' => $playlist_id));
+				// $playlist = $playlist ? $playlist[0]:array();
+				// $playlist['tracks']=$tracks;
+				$resp=array(
+					'message'=>"Success",
+					'data'=>$newData,
+					'status'=>200
 				);
 			}else{
 				$resp=array( 'message'=>"Playlist not deleted", 'status'=>500);
