@@ -75,7 +75,9 @@ class User_Ctrl extends My_Controller {
 				'userId'=>$userId,
 				'playlists'=>$playlist,
 			);
-			$this->response($resp);
+			echo AUTHORIZATION::generateToken($this->data);
+			die;
+			// $this->response($resp);
 		}else{
 				$resp=array(
 					'message'=>"invalid method",
