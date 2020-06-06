@@ -118,7 +118,7 @@ class Track_Model extends My_Model
 	 * @return object
 	 */
 	function filteredData($postData=null){
-		$fields = array('cities.name','albums.name','artists.name','tracks.name','tracks.id','tracks.url','tracks.size','tracks.is_in_album');
+		$fields = array('cities.name','albums.name','artists.name','tracks.name','tracks.id','tracks.url','tracks.size','tracks.is_in_album','tracks.other_artist_name');
 
 		
 		$response = array();

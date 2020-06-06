@@ -120,7 +120,8 @@ $('#is_in_album').change(function() {
                 </div>
             </div>
             
-            <div class="row" id="city_section">
+            <div  id="city_section">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">City: <span class="text-danger">*</span></label>
@@ -141,6 +142,20 @@ $('#is_in_album').change(function() {
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Other Artist Name: </label>
+                        <div class="col-lg-9">
+
+                            <input type="text" value="<?= $formData ? $formData['other_artist_name']:"" ?>"  name="other_artist_name" class="form-control" placeholder="Enter Other Artist Name"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            </div>
+
 
 
             <div class="text-right">

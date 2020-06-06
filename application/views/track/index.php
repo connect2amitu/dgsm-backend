@@ -136,7 +136,7 @@ $(document).ready(function(){
           data: 'artist_name',
           width: "100px",
           render: function ( data, type, row, meta ) {
-            return data?data:"-";
+            return data?`${data} ${row.other_artist_name?`(${row.other_artist_name})`:""}`:"-";
            }
         },
         { 
@@ -156,7 +156,7 @@ $(document).ready(function(){
             var filePath = "<?= base_url();?>"+row.url;
             console.log('row =>',row);
             
-            var openFront = "http://localhost:3000/album/"+row.album_slug;
+            var openFront = "<?= FRONT_END_SITE?>/album/"+row.album_slug;
             return `
             <a style="margin-right:5px;color:blue" href="`+openFront+`" class="legitRipple"> <i class="icon-pin position-left"></i></a>
             <a style="margin-right:5px;" href="javascript:void(0);" class="legitRipple playBtn" onclick="playsong('`+filePath+`')" data-src="`+filePath+`"><i class="icon-play3 position-left"></i></a>

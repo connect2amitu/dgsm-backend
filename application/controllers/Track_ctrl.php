@@ -42,6 +42,7 @@ class Track_Ctrl extends My_Controller {
       $album_id    =   $this->input->post('album_id', TRUE);
       $artist_id   =   $this->input->post('artist_id', TRUE);
       $city_id   =   $this->input->post('city_id', TRUE);
+      $other_artist_name   =   $this->input->post('other_artist_name', TRUE);
       $is_in_album =   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
       if(isset($_FILES['tracks'])){
         
@@ -111,6 +112,7 @@ class Track_Ctrl extends My_Controller {
 							'album_id'=> $album_id,
 							'artist_id'=> $artist_id,
 							'city_id'=> $city_id,
+							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
 							'size'=> $file['file_size'],
 							'name'=>$file['client_name'],
