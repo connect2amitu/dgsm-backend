@@ -22,6 +22,10 @@ $route['tracks'] = 'track_ctrl';
 $route['tracks/(:any)'] = 'track_ctrl/$1';
 $route['tracks/(:any)/(:any)'] = 'track_ctrl/$1/$2';
 
+$route['vani'] = 'vani_ctrl';
+$route['vani/(:any)'] = 'vani_ctrl/$1';
+$route['vani/(:any)/(:any)'] = 'vani_ctrl/$1/$2';
+
 
 $route['login'] = 'login_ctrl';
 $route['login/(:any)'] = 'login_ctrl/$1';

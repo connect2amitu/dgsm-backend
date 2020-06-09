@@ -22,7 +22,7 @@ $(document).ready(function(e){
         <div class="page-title">
             <h5>
                 <i class="icon-circle-left2 position-left"></i>
-                <span class="text-semibold">Track</span>
+                <span class="text-semibold">Vani</span>
                 <!-- <small class="display-block">Dark background color</small> -->
             </h5>
         </div>
@@ -30,7 +30,7 @@ $(document).ready(function(e){
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?=base_url()?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li class="active">Track</li>
+            <li class="active">Vani</li>
         </ul>
     </div>
 </div>
@@ -39,7 +39,7 @@ $(document).ready(function(e){
         <div class="page-header-content">
             <button type="submit" id="deleteselected" class="btn btn-rounded mb-20 btn-danger legitRipple"
                 style="display: none;" onclick="return deleteall()">Delete</button>
-            <a href="<?= base_url('tracks/add'); ?>" class="btn btn-rounded mb-20 btn-success legitRipple">Add <i
+            <a href="<?= base_url('vani/add'); ?>" class="btn btn-rounded mb-20 btn-success legitRipple">Add <i
                     class="icon-add-to-list"></i> </a>
 
             <audio controls id="player" controlsList="nodownload">
@@ -51,7 +51,7 @@ $(document).ready(function(e){
     </div>
     <div class="row">
         <div class="panel panel-flat">
-            <form id="checkboxdata" method="POST" action="<?= base_url('tracks/deleteall'); ?>">
+            <form id="checkboxdata" method="POST" action="<?= base_url('vani/deleteall'); ?>">
                 <table class="table table-hover" id="dTable">
                     <thead>
                         <tr>
@@ -96,7 +96,7 @@ $(document).ready(function(){
     'serverMethod': 'post',
     "bAutoWidth": false,
     'stateSave': true,
-    'ajax': '<?=base_url('tracks/getData')?>',
+    'ajax': '<?=base_url('vani/getData')?>',
     'columns': [
         { 
           targets: 1,
@@ -152,7 +152,7 @@ $(document).ready(function(){
           width: "110px",
           orderable: false, 
           render: function ( data, type, row, meta ) {
-            var path = "<?= base_url('tracks/edit/');?>"+row.id;
+            var path = "<?= base_url('vani/edit/');?>"+row.id;
             var filePath = "<?= base_url();?>"+row.url;
             console.log('row =>',row);
             
@@ -204,7 +204,7 @@ $(document).ready(function(){
 function editWin(e,h=800,w=600) {
   var y = window.outerHeight / 2 + window.screenY - ( h / 2)
     var x = window.outerWidth / 2 + window.screenX - ( w / 2)
-    myWindow = window.open('<?=base_url('/tracks/editLyrics')?>/'+e, "Edit", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + y + ', left=' + x);
+    myWindow = window.open('<?=base_url('/vani/editLyrics')?>/'+e, "Edit", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + y + ', left=' + x);
 };  
  
 function del(id) {
@@ -222,7 +222,7 @@ function del(id) {
     function(isConfirm){
       if (isConfirm) {
         $.ajax({
-          url: '<?= base_url('tracks/delete') ?>',
+          url: '<?= base_url('vani/delete') ?>',
           type: 'POST',
           data: { "id": id },
           success: function(data) {

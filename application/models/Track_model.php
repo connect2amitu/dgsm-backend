@@ -117,7 +117,7 @@ class Track_Model extends My_Model
 	 * @param  object $postData data table state
 	 * @return object
 	 */
-	function filteredData($postData=null){
+	function filteredData($postData=null, $type="bhajan"){
 		$fields = array('cities.name','albums.name','artists.name','tracks.name','tracks.id','tracks.url','tracks.size','tracks.is_in_album','tracks.other_artist_name');
 
 		
@@ -149,6 +149,7 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
+		$this->db->where(array('tracks.type'=>$type));
 		$records = $this->db->get($this->table)->result();
 		$totalRecords = $records[0]->allcount;
 
@@ -157,6 +158,7 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
+		$this->db->where(array('tracks.type'=>$type));
 		if($searchQuery != '')
 		   $this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
@@ -178,6 +180,7 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
+		$this->db->where(array('tracks.type'=>$type));
 		if($searchQuery != '')
 		   $this->db->where($searchQuery);
 		$this->db->order_by($columnName, $columnSortOrder);
@@ -193,6 +196,5 @@ class Track_Model extends My_Model
 		);
 		return $response;
 	}
-
 
 }
