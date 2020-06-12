@@ -112,6 +112,7 @@ class Track_Ctrl extends My_Controller {
 							'album_id'=> $album_id,
 							'artist_id'=> $artist_id,
 							'city_id'=> $city_id,
+							'type'=> "bhajan",
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
 							'size'=> $file['file_size'],

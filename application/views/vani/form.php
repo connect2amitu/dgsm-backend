@@ -4,10 +4,10 @@ $btnName="Add";
 
 if(isset($data)){
     $formData=$data[0];
-    $redirect='tracks/edit/'.$formData['id'];
+    $redirect='vani/edit/'.$formData['id'];
     $btnName="Update";
 }else{
-    $redirect='tracks/add';
+    $redirect='vani/add';
 }
 $selectedAlbum="";
 if(isset($_GET['album'])){

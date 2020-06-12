@@ -36,6 +36,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 $route['api/tracks'] = 'APIs/track_ctrl';
+
+$route['api/browse'] = 'APIs/browse_ctrl';
+
 $route['api/users'] = 'APIs/user_ctrl';
 $route['api/users/(:any)'] = 'APIs/user_ctrl/$1';
 // $route['api/tracks/(:any)/(:any)'] = 'APIs/track_ctrl/index/$1/$2';

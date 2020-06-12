@@ -98,11 +98,6 @@ class Vani_Ctrl extends My_Controller {
         
 					if (!$this->upload->do_multi_upload('tracks')) {
 						 $error = array('error' => $this->upload->display_errors());
-						 echo `<pre>`;
-						 echo "err";
-						 print_r($error);
-						 echo `</pre>`;
-						 die;
 					}
 					else {
 						$uploded_files_array = $this->upload->get_multi_upload_data();
@@ -112,6 +107,7 @@ class Vani_Ctrl extends My_Controller {
 							'album_id'=> $album_id,
 							'artist_id'=> $artist_id,
 							'city_id'=> $city_id,
+							'type'=> "vani",
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
 							'size'=> $file['file_size'],
@@ -126,7 +122,7 @@ class Vani_Ctrl extends My_Controller {
 						}
 					}
 				}
-				redirect(base_url('/tracks'));
+				redirect(base_url('/vani'));
 		}
 	}
 
@@ -152,7 +148,7 @@ class Vani_Ctrl extends My_Controller {
 				$this->session->set_flashdata('error', 'Record not updated');
 			}
 
-			redirect(base_url('/tracks'));
+			redirect(base_url('/vani'));
 
 		}
 	}
@@ -186,7 +182,7 @@ class Vani_Ctrl extends My_Controller {
 				$this->session->set_flashdata('error', 'Selected '.count($this->input->post('chk', true)).' Records are not deleted');
 		}
 
-		redirect(base_url('/tracks'));
+		redirect(base_url('/vani'));
 	}
 
 
@@ -209,7 +205,7 @@ class Vani_Ctrl extends My_Controller {
 				$this->session->set_flashdata('error', 'Record not updated');
 			}
 
-			redirect(base_url('/tracks'));
+			redirect(base_url('/vani'));
 
 		}
 	}
