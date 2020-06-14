@@ -42,10 +42,14 @@ class Track_Ctrl extends My_Controller {
       $album_id    =   $this->input->post('album_id', TRUE);
       $artist_id   =   $this->input->post('artist_id', TRUE);
       $city_id   =   $this->input->post('city_id', TRUE);
+      $language   =   $this->input->post('language', TRUE);
       $other_artist_name   =   $this->input->post('other_artist_name', TRUE);
-      $is_in_album =   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
+	  $is_in_album =   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
+	  
+
       if(isset($_FILES['tracks'])){
-        
+		echo "yes";
+		die;
         $folder_name =  'uploads';
         if($is_in_album){
           $album = $this->album->get(array('albums.id'=> $album_id ));
@@ -112,6 +116,7 @@ class Track_Ctrl extends My_Controller {
 							'album_id'=> $album_id,
 							'artist_id'=> $artist_id,
 							'city_id'=> $city_id,
+							'language'=> $language,
 							'type'=> "bhajan",
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
@@ -120,14 +125,20 @@ class Track_Ctrl extends My_Controller {
 							'url'=>$folder_name.'/'.$file['file_name'],
 							);
 						}
+						
 						 if($this->track->save_many($insert_array)){
 							$this->session->set_flashdata('success', 'Record added');
 						}else{
 								$this->session->set_flashdata('error', 'Record not added');
 						}
 					}
+				}else{
+					echo "errrrrrrror";
+							die;
 				}
-				redirect(base_url('/tracks'));
+
+
+				// redirect(base_url('/tracks'));
 		}
 	}
 

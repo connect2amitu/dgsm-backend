@@ -35,6 +35,7 @@ class Browse_Ctrl extends My_Controller {
 			'message'=>"Success",
 			'data'=>$artist,
 			'tracks'=>$data['aaData'],
+			'total'=>$data['iTotalRecords'],
 			'totalPages'=>ceil($data['iTotalRecords']/$size),
 			'status'=>200
 		);

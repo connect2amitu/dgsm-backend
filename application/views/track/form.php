@@ -101,6 +101,21 @@ $('#is_in_album').change(function() {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label class="col-lg-3 control-label">Language: <span class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                            <label for="hindi">Hindi </label><input type="radio" name="language" id="hindi" value="hindi" />&nbsp;
+                            <label for="sindhi">Sindhi </label><input type="radio" name="language" id="sindhi" value="sindhi" />&nbsp;
+                            <label for="punjabi">Punjabi </label><input type="radio" name="language" id="punjabi" value="punjabi" />&nbsp;
+                            <label for="english">English </label><input type="radio" name="language" id="english" value="english" />&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label class="col-lg-3 control-label">Artist: <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
 
