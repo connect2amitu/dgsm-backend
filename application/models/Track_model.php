@@ -220,7 +220,17 @@ class Track_Model extends My_Model
 		// $this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
 		$totalRecordwithFilter = $records[0]->allcount;
-		$this->db->select('tracks.*,cities.name as city_name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+
+		// $this->db->select('tracks.*,cities.name as city_name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+		// $this->db->join('artists', 'tracks.artist_id = artists.id','left');
+		// $this->db->join('albums', 'tracks.album_id = albums.id','left');
+		// $this->db->join('cities', 'tracks.city_id = cities.id','left');
+		// $this->db->where(array('tracks.type'=>$query['content']));
+		// $this->db->where($query['where']);
+
+
+
+		$this->db->select('tracks.*,albums.*,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as cover');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');

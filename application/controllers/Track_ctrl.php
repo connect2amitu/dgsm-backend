@@ -48,8 +48,6 @@ class Track_Ctrl extends My_Controller {
 	  
 
       if(isset($_FILES['tracks'])){
-		echo "yes";
-		die;
         $folder_name =  'uploads';
         if($is_in_album){
           $album = $this->album->get(array('albums.id'=> $album_id ));
@@ -133,12 +131,9 @@ class Track_Ctrl extends My_Controller {
 						}
 					}
 				}else{
-					echo "errrrrrrror";
-							die;
+							
 				}
-
-
-				// redirect(base_url('/tracks'));
+				redirect(base_url('/tracks'));
 		}
 	}
 

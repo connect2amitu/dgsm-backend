@@ -46,21 +46,16 @@ class Album_Ctrl extends My_Controller {
 	{
 
 		$query=array(
-			'slug'=>$slug
+			'artists.slug'=>$slug
 		);
 		$data 		= $this->albums->get($query);
 		$tracks 		= $this->track->get($query);
-		$_tracks=array();
-		foreach ($tracks as $value) {
-			
-			# code...
-		}
 		if($data){
 			$data=$data[0];
+			$data['tracks']=$tracks;
 		}else{
 			$data=null;
 		}
-		$data['tracks']=$tracks;
 		$resp=array(
 			'message'=>"Success",
 			'data'=>$data,
