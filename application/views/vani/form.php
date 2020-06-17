@@ -49,7 +49,7 @@ $('#is_in_album').change(function() {
 <form class="form-horizontal form-validate-jquery" enctype="multipart/form-data" method="POST" action="<?= base_url($redirect); ?>">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h5 class="panel-title"><?= $btnName ?> Track</h5>
+            <h5 class="panel-title"><?= $btnName ?> Vani</h5>
         </div>
 
         <div class="panel-body">
@@ -57,7 +57,7 @@ $('#is_in_album').change(function() {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="col-lg-3 control-label">Tracks: <span class="text-danger">*</span></label>
+                        <label class="col-lg-3 control-label">Vani: <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
                             <input type="file" name="tracks[]" multiple required="required" />
                         </div>
@@ -101,9 +101,46 @@ $('#is_in_album').change(function() {
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label class="col-lg-3 control-label">Year/Month: <span class="text-danger">*</span></label>
+                        <div class="col-sm-3">
+                            <select id="year" name="year" class="select-search" required="required">
+                                <option value="-1" disabled selected>-Select Year-</option>
+                                <?php
+
+													for ($i=2020; $i >=  1992 ; $i--) { 
+													?>
+                                <option <?= $formData && $formData['year']===$i?"selected":""; ?>
+                                    value="<?=$i?>"><?=$i?></option>
+                                <?php
+													}
+							?>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <select id="month" name="month" class="select-search" required="required">
+                                <option value="-1" disabled selected>-Select Month-</option>
+                                <?php
+
+                                $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December');
+                                    foreach ($months as $key =>  $month) {                                                     
+                                    ?>
+                                <option <?= $formData && $formData['month']===$month?"selected":""; ?>
+                                    value="<?=$key+1?>"><?=$month?></option>
+                                <?php
+                                    }
+							?>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label class="col-lg-3 control-label">Language: <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <label for="hindi">Hindi </label><input type="radio" name="language" id="hindi" value="hindi" />&nbsp;
+                            <label for="hindi">Hindi </label><input type="radio" checked name="language" id="hindi" value="hindi" />&nbsp;
                             <label for="sindhi">Sindhi </label><input type="radio" name="language" id="sindhi" value="sindhi" />&nbsp;
                             <label for="punjabi">Punjabi </label><input type="radio" name="language" id="punjabi" value="punjabi" />&nbsp;
                             <label for="english">English </label><input type="radio" name="language" id="english" value="english" />&nbsp;
@@ -246,6 +283,7 @@ $('#is_in_album').change(function() {
             city_id:"Please select City",
             artist_id:"Please select Artist",
             album_id:"Please select Album",
+            year:"Please Year",
             "tracks[]":"Please select Tracks",
         }
     });

@@ -59,6 +59,7 @@ $(document).ready(function(e){
                             <th>#</th>
                             <th>Name</th>
                             <th>Type</th>
+                            <th>Year</th>
                             <th>City</th>
                             <th>Album</th>
                             <th>Artist</th>
@@ -116,6 +117,13 @@ $(document).ready(function(){
         { 
           data: 'type',
           width: "5px"
+        },
+        { 
+          data: 'year',
+          width: "100px",
+          render: function ( data, type, row, meta ) {
+            return row.month&&row.year ? `${row.month} / ${row.year}`:"N/A";
+           }
         },
         { 
           data: 'city_name',

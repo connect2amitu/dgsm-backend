@@ -86,5 +86,5 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 defined('PER_PAGE')            OR define('PER_PAGE', 10); // Page Limit
 
 
-defined('FRONT_END_SITE')            OR define('FRONT_END_SITE', "https://dgsmsg.com");
+defined('FRONT_END_SITE')            OR define('FRONT_END_SITE', "https://dgsm.in");
 defined('JWT_SECRET')            OR define('JWT_SECRET', "amintu");

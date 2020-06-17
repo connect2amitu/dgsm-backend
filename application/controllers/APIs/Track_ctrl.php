@@ -14,19 +14,36 @@ class Track_Ctrl extends My_Controller {
 	
 	public function index()
 	{
+		// $page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
+		// $size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
+		// $type   = $this->input->get('type', TRUE)?$this->input->get('type', TRUE):10;
+		// $order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
+		// $total  = $this->track->count();
+		
+		// $data 		= $this->track->get('',$size,$page);
+		// $resp=array(
+		// 	'message'=>"Success",
+		// 	'data'=>$data,
+		// 	'totalPages'=>ceil($total/$size),
+		// 	'status'=>200
+		// );
+		// $this->response($resp);
 		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
 		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
-		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
-		$total  = $this->track->count();
+		$content   = $this->input->get('content', TRUE)?$this->input->get('content', TRUE):10;
+		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
+		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 
-		$data 		= $this->track->get('',$size,$page);
+		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array(),'content'=>$content);
+		$data 		= $this->track->getBrowseTrackData($query);
+
 		$resp=array(
 			'message'=>"Success",
-			'data'=>$data,
-			'totalPages'=>ceil($total/$size),
+			'data'=>$data['aaData'],
+			'total'=>$data['iTotalRecords'],
+			'totalPages'=>ceil($data['iTotalRecords']/$size),
 			'status'=>200
 		);
-		$this->response($resp);
-		
+		$this->response($resp);	
 	}
 }

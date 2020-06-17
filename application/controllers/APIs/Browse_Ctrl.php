@@ -20,7 +20,7 @@ class Browse_Ctrl extends My_Controller {
 		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
 		$slug   = $this->input->get('slug', TRUE)?$this->input->get('slug', TRUE):"";
 		$content   = $this->input->get('content', TRUE)?$this->input->get('content', TRUE):10;
-		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
+		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 
 		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('artists.slug'=>$slug,'tracks.language'=>$lang),'content'=>$content);

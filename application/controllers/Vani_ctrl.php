@@ -39,12 +39,16 @@ class Vani_Ctrl extends My_Controller {
 			$this->data['content']    = $this->load->view('vani/form', $this->data, true);
 			$this->load->view('layout/index',$this->data);
 		}else{
-      $album_id    =   $this->input->post('album_id', TRUE);
-      $artist_id   =   $this->input->post('artist_id', TRUE);
-      $city_id   =   $this->input->post('city_id', TRUE);
-			$language   =   $this->input->post('language', TRUE);
-      $other_artist_name   =   $this->input->post('other_artist_name', TRUE);
-      $is_in_album =   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
+			
+			$album_id    					=   $this->input->post('album_id', TRUE);
+      $artist_id   					=   $this->input->post('artist_id', TRUE);
+      $city_id   						=   $this->input->post('city_id', TRUE);
+			$language   					=   $this->input->post('language', TRUE);
+			$year   							=   $this->input->post('year', TRUE);
+			$month   							=   $this->input->post('month', TRUE);
+      $other_artist_name   	=   $this->input->post('other_artist_name', TRUE);
+			$is_in_album 					=   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
+			
       if(isset($_FILES['tracks'])){
         
         $folder_name =  'uploads';
@@ -109,6 +113,8 @@ class Vani_Ctrl extends My_Controller {
 							'artist_id'=> $artist_id,
 							'city_id'=> $city_id,
 							'language'=> $language,
+							'year'=> $year,
+							'month'=> $month,
 							'type'=> "vani",
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
