@@ -11,42 +11,41 @@ class Album_Ctrl extends My_Controller {
 		parent::__construct();
 		$this->load->model('album_model','albums');
 		$this->load->model('track_model','track');
+		$this->load->model('artist_model','artist');
 
 	}
 
+
+	
 	public function index()
 	{
-
 		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
 		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
 		$q  = $this->input->get('q', TRUE)?$this->input->get('q', TRUE):'';
 
-		$total 							= $this->albums->filterCount($q);
-
 		$query=array(
-			'offset'=>$page,
-			'size'=>$size,
-			'order'=>$order,
+			'start'=>$page,
+			'rowperpage'=>$size,
+			'order'=>array('columnName'=>'name', 'columnSortOrder'=>$order),
 			// 'q'=>$q,
-			'q'=>explode(" ",$q),
+			'where'=>array(),
 		);
 		$data 		= $this->albums->getAlbums($query);
 		$resp=array(
 			'message'=>"Success",
-			'data'=>$data,
-			'totalPages'=>ceil($total/$size),
+			'data'=>$data['data'],
+			'totalPages'=>ceil($data['totalRecords']/$size),
 			'status'=>200,
-			'total'=>$total,
+			'total'=>$data['totalRecords'],
 		);
 
 		$this->response($resp);
 	}
 	public function getBySlug($slug)
 	{
-
 		$query=array(
-			'artists.slug'=>$slug
+			'albums.slug'=>$slug
 		);
 		$data 		= $this->albums->get($query);
 		$tracks 		= $this->track->get($query);
@@ -63,4 +62,45 @@ class Album_Ctrl extends My_Controller {
 		);
 		$this->response($resp);
 	}
+
+	public function getArtistAlbums()
+	{
+
+		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
+		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
+		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
+		$q  = $this->input->get('q', TRUE)?$this->input->get('q', TRUE):'';
+		$type  = $this->input->get('type', TRUE)?$this->input->get('type', TRUE):'';
+		$artists 		= $this->artist->get(array('artists.slug'=>$q));
+
+		if(count($artists)){
+			$artists=$artists[0];
+			$query=array(
+				'start'=>$page,
+				'rowperpage'=>$size,
+				'order'=>array('columnName'=>'name', 'columnSortOrder'=>$order),
+				'where'=>array('artist_id'=>$artists['id'],'albums.type'=>$type),
+			);
+			$data 		= $this->albums->getAlbums($query);
+			$resp=array(
+				'message'=>"Success",
+				'data'=>$data['data'],
+				'totalPages'=>ceil($data['totalRecords']/$size),
+				'status'=>200,
+				'total'=>$data['totalRecords'],
+			);
+		}else{
+				$resp=array(
+					'message'=>"Success",
+					'data'=>[],
+					'totalPages'=>0,
+					'status'=>200,
+					'total'=>0,
+				);
+		}
+
+		$this->response($resp);
+	}
+	
+
 }

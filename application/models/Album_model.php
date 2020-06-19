@@ -34,21 +34,25 @@ class Album_Model extends My_Model
 	 * @param  string $table table name
 	 * @return bool
 	 */
-	public function filterCount($searchValue="")
+	public function filterCount($where)
 	{
 		$fields = array('albums.slug', 'albums.name', 'albums.tags', 'artists.name');
+		$searchQuery=$where;
+		if(!is_array($where)){
 
 		## Search 
 		$searchQuery = "";
-		if($searchValue != ''){
+		if($where != ''){
 			foreach ($fields as $field) {
 				if($searchQuery == ""){
-					$searchQuery = $field . " like '%".$searchValue."%'";
+					$searchQuery = $field . " like '%".$where."%'";
 				}else{
-					$searchQuery.= " or ".$field." like '%".$searchValue."%'";
+					$searchQuery.= " or ".$field." like '%".$where."%'";
 				}
 			}
 		}
+	}
+
 
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
@@ -67,7 +71,7 @@ class Album_Model extends My_Model
 	 * @param  int $offset offset of record
 	 * @return bool
 	 */
-	public function get($id='', $offset='', $start='')
+	public function get($id='', $offset='', $start='',$order="desc")
 	{
 		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->from($this->table);
@@ -80,6 +84,7 @@ class Album_Model extends My_Model
 		{
 			$this->db->where($id);
 		}
+		$this->db->order_by('name', $order);
 		return $this->db->get()->result_array();
 	}
 
@@ -94,27 +99,34 @@ class Album_Model extends My_Model
 	 */
 	public function getAlbums($query)
 	{
-		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
-		$this->db->from($this->table);
+		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
-		if ($query['offset']!='' or $query['size']!='')
-			$this->db->limit($query['size'],$query['offset']);
-		if (isset($query['q'])){
-			// foreach ($query['q'] as $value) {
-				// $this->db->or_like('albums.slug',$query['q']); 
-				// $this->db->or_like('albums.name',$query['q']);
-				// $this->db->or_like('albums.tags',$query['q']);
-				// $this->db->or_like('artists.name',$query['q']);				
-			// }
-			foreach ($query['q'] as $value) {
-				$this->db->or_like('albums.slug',$value); 
-				$this->db->or_like('albums.name',$value);
-				$this->db->or_like('albums.tags',$value);
-				$this->db->or_like('artists.name',$value);
-			}
-		}
-		$this->db->order_by('id', $query['order']);
-		return $this->db->get()->result_array();
+		$this->db->where($query['where']);
+		$records = $this->db->get($this->table)->result();
+		$totalRecords = $records[0]->allcount;
+		
+		$this->db->select('count(*) as allcount');
+		$this->db->join('artists', 'albums.artist_id = artists.id','left');
+		$this->db->where($query['where']);
+		$records = $this->db->get($this->table)->result();
+		$totalRecordwithFilter = $records[0]->allcount;
+		
+		
+		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+		$this->db->join('artists', 'albums.artist_id = artists.id','left');
+		$this->db->where($query['where']);
+		$this->db->order_by($query['order']['columnName'], $query['order']['columnSortOrder']);
+		$this->db->limit($query['rowperpage'], $query['start']);
+		$records = $this->db->get($this->table)->result();
+   
+		## Response
+		$response = array(
+		   "totalRecords" => $totalRecords,
+		   "totalRecordwithFilter" => $totalRecordwithFilter,
+		   "data" => $records
+		);
+		
+		return $response;
 	}
 
 	/**
@@ -193,7 +205,6 @@ class Album_Model extends My_Model
 			}
 		}
  
-		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		$records = $this->db->get($this->table)->result();

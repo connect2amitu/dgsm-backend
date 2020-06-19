@@ -42,9 +42,12 @@ class Album_Ctrl extends My_Controller {
 			}
 			$name = $this->input->post('name', TRUE);
 			$artist_id = $this->input->post('artist_id', TRUE);
+			$type = $this->input->post('type', TRUE);
+
 			$this->data=array(
-				'name'			=> $name	,
-				'artist_id'	=> $artist_id	,
+				'name'			=> $name,
+				'artist_id'	=> $artist_id,
+				'type'	=> $type,
 				'tags'	=>	$tags,
 				'cover'=>$this->uploadImage(),
 				'slug'=>$this->create_slug($name)
@@ -79,10 +82,12 @@ class Album_Ctrl extends My_Controller {
 			$name = $this->input->post('name', TRUE);
 			$slug = $this->input->post('slug', TRUE);
 			$artist_id = $this->input->post('artist_id', TRUE);
+			$type = $this->input->post('type', TRUE);
 
 			$this->data=array(
 				'name'			=> $name	,
-				'artist_id'	=> $artist_id	,
+				'artist_id'	=> $artist_id,
+				'type'	=> $type,
 				'tags'			=>	$tags,
 				'slug'			=>	$slug,
 			);

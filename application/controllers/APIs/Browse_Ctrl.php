@@ -42,4 +42,17 @@ class Browse_Ctrl extends My_Controller {
 		);
 		$this->response($resp);	
 	}
+	
+	public function mainCategory()
+	{
+		$query = array('type' => "main");
+		$artist 		= $this->artist->get($query);
+
+		$resp=array(
+			'message'=>"Success",
+			'data'=>$artist,
+			'status'=>200
+		);
+		$this->response($resp);	
+	}
 }

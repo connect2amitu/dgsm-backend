@@ -35,6 +35,7 @@
                     <th>#</th>
                     <th>Cover</th>
                     <th>Name</th>
+                    <th>Type</th>
                     <th>Slug</th>
                     <th>Artist</th>
                     <th>Tags</th>
@@ -80,6 +81,9 @@ $(document).ready(function(){
         },
         { 
           data: 'name'
+        },
+        { 
+          data: 'type'
         },
         { 
           data: 'slug'

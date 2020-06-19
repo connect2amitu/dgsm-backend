@@ -62,6 +62,19 @@ if(isset($data)){
         </div>
       </div>
 
+
+      <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Album Type: <span class="text-danger">*</span></label>
+                        <div class="col-lg-9">
+                            <label for="bhajan">Bhajan </label><input type="radio" <?= $formData && $formData['type']==="bhajan"?"checked":""; ?>  name="type" id="bhajan" value="bhajan" />&nbsp;
+                            <label for="vani">Vani </label><input type="radio" <?= $formData && $formData['type']==="vani"?"checked":""; ?> name="type" id="vani" value="vani" />&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
       <?php
         if($formData && $formData['slug']){
         ?>
