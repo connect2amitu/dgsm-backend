@@ -49,7 +49,7 @@ $('#is_in_album').change(function() {
 <form class="form-horizontal form-validate-jquery" enctype="multipart/form-data" method="POST" action="<?= base_url($redirect); ?>">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h5 class="panel-title"><?= $btnName ?> Track</h5>
+            <h5 class="panel-title"><?= $btnName ?> Bhajan</h5>
         </div>
 
         <div class="panel-body">

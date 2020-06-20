@@ -73,7 +73,7 @@ class Album_Model extends My_Model
 	 */
 	public function get($id='', $offset='', $start='',$order="desc")
 	{
-		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+		$this->db->select('albums.*,albums.type as albums_type,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->from($this->table);
 		$this->db->join('artists', 'albums.artist_id = artists.id');
 		if ($start!='' or $offset!='')
@@ -112,7 +112,7 @@ class Album_Model extends My_Model
 		$totalRecordwithFilter = $records[0]->allcount;
 		
 		
-		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+		$this->db->select('albums.*,albums.type as albums_type,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		$this->db->where($query['where']);
 		$this->db->order_by($query['order']['columnName'], $query['order']['columnSortOrder']);
@@ -218,7 +218,7 @@ class Album_Model extends My_Model
 		$totalRecordwithFilter = $records[0]->allcount;
    
 	
-		$this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
+		$this->db->select('albums.*,albums.type as albums_type,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		if($searchQuery != '')
 		   $this->db->where($searchQuery);

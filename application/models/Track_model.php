@@ -50,7 +50,7 @@ class Track_Model extends My_Model
 	 */
 	public function get($id='', $start='', $offset='')
 	{
-		$this->db->select('tracks.*,albums.*,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as album_slug,artists.name as artist_name,artists.avatar as artist_avatar');
+		$this->db->select('tracks.*,albums.*,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.type as album_type,albums.slug as album_slug,artists.name as artist_name,artists.avatar as artist_avatar');
 		$this->db->from('tracks');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
@@ -236,6 +236,7 @@ class Track_Model extends My_Model
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
 		$this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
+		
 
 		// if($searchQuery != '')
 		//    $this->db->where($searchQuery);

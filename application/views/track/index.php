@@ -22,7 +22,7 @@ $(document).ready(function(e){
         <div class="page-title">
             <h5>
                 <i class="icon-circle-left2 position-left"></i>
-                <span class="text-semibold">Track</span>
+                <span class="text-semibold">Bhajan</span>
                 <!-- <small class="display-block">Dark background color</small> -->
             </h5>
         </div>
@@ -30,7 +30,7 @@ $(document).ready(function(e){
     <div class="breadcrumb-line">
         <ul class="breadcrumb">
             <li><a href="<?=base_url()?>"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li class="active">Track</li>
+            <li class="active">Bhajan</li>
         </ul>
     </div>
 </div>

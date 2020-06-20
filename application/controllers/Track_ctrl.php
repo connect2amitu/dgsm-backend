@@ -31,10 +31,10 @@ class Track_Ctrl extends My_Controller {
 
 	public function add()
 	{
-		$this->data['title'] = "Add Track";
+		$this->data['title'] = "Add Bhajan";
 		if($this->input->method()=="get"){
 			$this->data['artists'] 		= $this->artist->get();
-			$this->data['albums'] 		= $this->album->get();
+			$this->data['albums'] 		= $this->album->get(array('albums.type'=>'bhajan'));
 			$this->data['cities'] 		= $this->city->get();
 			$this->data['content']    = $this->load->view('track/form', $this->data, true);
 			$this->load->view('layout/index',$this->data);
@@ -48,46 +48,50 @@ class Track_Ctrl extends My_Controller {
 	  
 
       if(isset($_FILES['tracks'])){
-        $folder_name =  'uploads';
+        $folder_name =  'uploads/bhajan';
         if($is_in_album){
           $album = $this->album->get(array('albums.id'=> $album_id ));
           if(count($album)){
-            $folder_name.= '/'.$album[0]['name'];
+						$albumName = trim($album[0]['name']);
+            $folder_name.= '/'.$albumName;
           }
           if($artist_id){
-            $artist  = $this->artist->get(array('id'=> $artist_id ));
+						$artist  = $this->artist->get(array('id'=> $artist_id ));
+						$artistName = trim($artist[0]['name']);
+						
             if(count($artist)){
-              $folder_name.='/'.$artist[0]['name'];
+              $folder_name.='/'.$artistName;
             }
           }
         }else{
-            if($artist_id){
-              $artist  = $this->artist->get(array('id'=> $artist_id ));
-              if(count($artist)){
-                $folder_name.='/'.$artist[0]['name'];
-              }
+					if($artist_id){
+						$artist  = $this->artist->get(array('id'=> $artist_id ));
+						$artistName = trim($artist[0]['name']);
+						
+            if(count($artist)){
+              $folder_name.='/'.$artistName;
             }
-
+          }
         }
         if($city_id){
           $city  = $this->city->get(array('id'=> $city_id ));
           if(count($city)){
             $folder_name.='/'.$city[0]['name'];
           }
-        }
+				}
+			
 		if (!is_dir($folder_name)) {
-          mkdir($folder_name, 0777, TRUE);
-     
+      mkdir($folder_name, 0777, TRUE);	
 		}
       $fileName=array();
-      $patterns = array();
-      $patterns[0] = '/ /';
-      $replacements = array();
-      $replacements[0] = '';
-      foreach ($_FILES as $key => $value) {
-        $fileName[]= preg_replace($patterns, $replacements, $value['name']);
-      }
-	  
+      // $patterns = array();
+      // $patterns[0] = '/ /';
+      // $replacements = array();
+			// $replacements[0] = '';
+		
+					foreach ($_FILES as $key => $value) {
+						$fileName[]= $value['name'];
+					}
 					$config['upload_path']   = $folder_name;
 					$config['allowed_types'] = '*';
 					$config['overwrite']     = 'false';
