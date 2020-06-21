@@ -230,7 +230,7 @@ class Track_Model extends My_Model
 
 
 
-		$this->db->select('tracks.*,albums.*,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as cover');
+		$this->db->select('tracks.*,albums.*,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as cover');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');

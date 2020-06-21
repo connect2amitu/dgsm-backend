@@ -34,7 +34,7 @@ class Track_Ctrl extends My_Controller {
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 
-		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array(),'content'=>$content);
+		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('tracks.type'=>$content),'content'=>$content);
 		$data 		= $this->track->getBrowseTrackData($query);
 
 		$resp=array(
