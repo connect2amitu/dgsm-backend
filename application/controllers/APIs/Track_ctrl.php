@@ -33,8 +33,13 @@ class Track_Ctrl extends My_Controller {
 		$content   = $this->input->get('content', TRUE)?$this->input->get('content', TRUE):10;
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
+		$aZ  = $this->input->get('aZ', TRUE)?$this->input->get('aZ', TRUE):false;
 
 		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('tracks.type'=>$content),'content'=>$content);
+		if($aZ){
+			$query['like']=array('tracks.name', $aZ, 'after');
+		}
+		// die;
 		$data 		= $this->track->getBrowseTrackData($query);
 
 		$resp=array(

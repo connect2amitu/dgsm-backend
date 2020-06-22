@@ -145,8 +145,6 @@ class Album_Ctrl extends My_Controller {
 		// POST data
 		$postData = $this->input->post();
    
-		// Get data
-		// $data = $this->Employee_model->getEmployees($postData);
 		$data = $this->albums->filteredData($postData);
 		echo json_encode($data);
 	 }

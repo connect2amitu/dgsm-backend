@@ -204,9 +204,13 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		$this->db->where(array('tracks.type'=>$query['content']));
+		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
+		if(isset($query['like'])){
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
 		$records = $this->db->get($this->table)->result();
+	
 		$totalRecords = $records[0]->allcount;
 
 
@@ -214,8 +218,12 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		$this->db->where(array('tracks.type'=>$query['content']));
+		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
+		if(isset($query['like'])){
+			// $this->db->like($query['like']);
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
 
 		// $this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
@@ -234,8 +242,13 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		$this->db->where(array('tracks.type'=>$query['content']));
+		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
+	
+		if(isset($query['like'])){
+			// $this->db->like($query['like']);
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
 		
 
 		// if($searchQuery != '')
@@ -243,7 +256,6 @@ class Track_Model extends My_Model
 		$this->db->order_by('tracks.created', $query['order']);
 		$this->db->limit($query['size'], $query['page']);
 		$records = $this->db->get($this->table)->result_array();
-
 		## Response
 		$response = array(
 		   "iTotalRecords" => $totalRecords,
