@@ -110,7 +110,7 @@ $(document).ready(function(){
           render: function ( data, type, row, meta ) {
             var path = "<?= base_url('albums/edit/');?>"+row.id;
             var frontURL = "<?= FRONT_END_SITE ?>/album/"+row.slug;
-            var addPlaylistURL = "<?= base_url('tracks/add?album=');?>"+row.id;
+            var addPlaylistURL = row.type === "vani"? "<?= base_url('vani/add?album=');?>"+row.id : "<?= base_url('tracks/add?album=');?>"+row.id 
             return `
             <a style="margin-right:5px;color:black" href="`+addPlaylistURL+`" target="" class="legitRipple"> <i class="icon-playlist-add position-left"></i></a>
             <a style="margin-right:5px;color:blue" href="`+frontURL+`" target="_blank" class="legitRipple"> <i class="icon-pin position-left"></i></a>

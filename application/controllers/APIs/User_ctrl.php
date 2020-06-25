@@ -34,6 +34,7 @@ class User_Ctrl extends My_Controller {
 			$userId="";
 			$playlist = array();
 			$condition = array('oauth_provider'=>$oauth_provider,'oauth_uid'=>$oauth_uid,'email'=>$email);
+
 			if($user = $this->user->get($condition)){
 				if(count($user)>0){
 					$newData = array('modified'=>date('Y-m-d H:i:s'));
@@ -75,9 +76,7 @@ class User_Ctrl extends My_Controller {
 				'userId'=>$userId,
 				'playlists'=>$playlist,
 			);
-			echo AUTHORIZATION::generateToken($this->data);
-			die;
-			// $this->response($resp);
+			$this->response($resp);
 		}else{
 				$resp=array(
 					'message'=>"invalid method",
