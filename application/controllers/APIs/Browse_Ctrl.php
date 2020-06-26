@@ -23,7 +23,7 @@ class Browse_Ctrl extends My_Controller {
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 
-		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('artists.slug'=>$slug,'tracks.language'=>$lang),'content'=>$content);
+		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('artists.slug'=>$slug,'tracks.language'=>$lang,'tracks.type'=>$content));
 		$data 		= $this->track->getBrowseTrackData($query);
 		$artist 		= $this->artist->get(array('artists.slug'=>$slug));
 		if(count($artist)){
