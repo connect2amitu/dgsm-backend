@@ -17,6 +17,10 @@ $route['cities'] = 'city_ctrl';
 $route['cities/(:any)'] = 'city_ctrl/$1';
 $route['cities/(:any)/(:any)'] = 'city_ctrl/$1/$2';
 
+$route['quotes'] = 'quote_ctrl';
+$route['quotes/(:any)'] = 'quote_ctrl/$1';
+$route['quotes/(:any)/(:any)'] = 'quote_ctrl/$1/$2';
+
 
 $route['tracks'] = 'track_ctrl';
 $route['tracks/(:any)'] = 'track_ctrl/$1';
@@ -39,6 +43,9 @@ $route['api/tracks'] = 'APIs/track_ctrl';
 
 $route['api/browse'] = 'APIs/browse_ctrl';
 $route['api/browse/(:any)'] = 'APIs/browse_ctrl/$1';
+
+$route['api/quote'] = 'APIs/quote_ctrl';
+$route['api/quote/(:any)'] = 'APIs/quote_ctrl/$1';
 
 $route['api/users'] = 'APIs/user_ctrl';
 $route['api/users/(:any)'] = 'APIs/user_ctrl/$1';

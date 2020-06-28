@@ -170,9 +170,9 @@
                                 <li class="<?= $this->uri->segment(1)==="artists"?"active":""?>"><a
                                         href="<?=base_url('/artists')?>"><i class="icon-width"></i>
                                         <span>Artist</span></a></li>
-                                <!-- <li class="<?= $this->uri->segment(1)==="playlists"?"active":""?>"><a
-                                        href="<?=base_url('/playlists')?>"><i class="icon-width"></i>
-                                        <span>Playlist</span></a></li> -->
+                                <li class="<?= $this->uri->segment(1)==="quotes"?"active":""?>"><a
+                                        href="<?=base_url('/quotes')?>"><i class="icon-width"></i>
+                                        <span>Quotes</span></a></li>
                                 <li class="<?= $this->uri->segment(1)==="tracks"?"active":""?>"><a
                                         href="<?=base_url('/tracks')?>"><i class="icon-width"></i> <span>Bhajan</span></a>
                                 </li>

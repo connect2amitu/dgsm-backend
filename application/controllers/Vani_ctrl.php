@@ -263,7 +263,6 @@ class Vani_Ctrl extends My_Controller {
 		// POST data
 		$postData = $this->input->post();
 		// Get data
-		// $data = $this->Employee_model->getEmployees($postData);
 		$data = $this->track->filteredData($postData,"vani");
 		echo json_encode($data);
 	 }

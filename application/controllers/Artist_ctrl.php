@@ -108,7 +108,6 @@ class Artist_Ctrl extends My_Controller {
 		$postData = $this->input->post();
    
 		// Get data
-		// $data = $this->Employee_model->getEmployees($postData);
 		$data = $this->artist->filteredData($postData);
 		echo json_encode($data);
 	 }

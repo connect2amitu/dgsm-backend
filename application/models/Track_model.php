@@ -198,13 +198,10 @@ class Track_Model extends My_Model
 	}
 
 	function getBrowseTrackData($query){
-		## Total number of records without filtering
-		// $this->db->select('albums.*,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
 		if(isset($query['like'])){
 			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
@@ -218,41 +215,25 @@ class Track_Model extends My_Model
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
 		if(isset($query['like'])){
-			// $this->db->like($query['like']);
 			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
 		}
 
-		// $this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
 		$totalRecordwithFilter = $records[0]->allcount;
-
-		// $this->db->select('tracks.*,cities.name as city_name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
-		// $this->db->join('artists', 'tracks.artist_id = artists.id','left');
-		// $this->db->join('albums', 'tracks.album_id = albums.id','left');
-		// $this->db->join('cities', 'tracks.city_id = cities.id','left');
-		// $this->db->where(array('tracks.type'=>$query['content']));
-		// $this->db->where($query['where']);
-
-
 
 		$this->db->select('tracks.*,albums.*,albums.type as album_type,tracks.type as type,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as cover');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');
-		// $this->db->where(array('tracks.type'=>$query['content']));
 		$this->db->where($query['where']);
 	
 		if(isset($query['like'])){
-			// $this->db->like($query['like']);
 			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
 		}
 		
 
-		// if($searchQuery != '')
-		//    $this->db->where($searchQuery);
 		$this->db->order_by('tracks.created', $query['order']);
 		$this->db->limit($query['size'], $query['page']);
 		$records = $this->db->get($this->table)->result_array();
