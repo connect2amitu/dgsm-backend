@@ -109,23 +109,28 @@ class Quote_Model extends My_Model
 		$columnName = $postData['columnName'];
 		$columnSortOrder = $postData['columnSortOrder'];
 		$searchValue = $postData['searchValue'];
-   
-		## Search 
+	 
 		$searchQuery = "";
-		if($searchValue != ''){
-			foreach ($fields as $field) {
-				if($searchQuery == ""){
-					$searchQuery = $field . " like '%".$searchValue."%'";
-				}else{
-					$searchQuery.= " or ".$field." like '%".$searchValue."%'";
+		if(!isset($postData['where'])){
+			## Search 
+			if($searchValue != ''){
+				foreach ($fields as $field) {
+					if($searchQuery == ""){
+						$searchQuery = $field . " like '%".$searchValue."%'";
+					}else{
+						$searchQuery.= " or ".$field." like '%".$searchValue."%'";
+					}
 				}
 			}
+		}else{
+			$searchQuery = $postData['where'];
 		}
  
 		## Total number of records without filtering
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
-
+		if($searchQuery != '')
+		$this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
 		$totalRecords = $records[0]->allcount;
    
@@ -139,7 +144,7 @@ class Quote_Model extends My_Model
 		$totalRecordwithFilter = $records[0]->allcount;
    
 		## Fetch records
-		$this->db->select('quotes.*,artists.name as artist_name,artists.avatar as artist_avatar');
+		$this->db->select('quotes.*,artists.id as artist_id,artists.name as artist_name,artists.avatar as artist_avatar');
 		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
 
 		if($searchQuery != '')

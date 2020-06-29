@@ -22,7 +22,7 @@ if(isset($data)){
                     <div class="form-group">
                         <label class="col-lg-1 control-label">Quote: <span class="text-danger">*</span></label>
                         <div class="col-lg-11">
-                            <textarea style="resize: none;" rows="3" cols="200" autocomplete="off" required="required" autofocus name="quote" class="form-control" placeholder="Enter Quote"><?php $formData ? $formData['quote']:"" ?></textarea>
+                            <textarea style="resize: none;" rows="3" cols="200" autocomplete="off" required="required" autofocus name="quote" class="form-control" placeholder="Enter Quote"><?php if($formData) echo $formData['quote']; ?></textarea>
                         </div>
                     </div>
                 </div>
