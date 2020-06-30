@@ -131,7 +131,7 @@ if ($Hour >= 5 && $Hour <= 11) {
 } else if ($Hour >= 19 || $Hour <= 4) {
     echo "Good Evening";
 }
-?>, Amit!</p>
+?>, Dr. Piyush!</p>
                 <p class="navbar-text"><a href="<?= base_url('login/logout') ?>"><i class="icon-switch2"></i></a></p>
                 <p class="navbar-text"><a target="_blank"
                         href="http://localhost/phpmyadmin/db_structure.php?server=1&db=dgsm"><i
