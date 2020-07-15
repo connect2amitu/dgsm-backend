@@ -24,6 +24,7 @@ class Album_Ctrl extends My_Controller {
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
 		$q  = $this->input->get('q', TRUE)?$this->input->get('q', TRUE):'';
 
+		
 		$query=array(
 			'start'=>$page,
 			'rowperpage'=>$size,
@@ -31,6 +32,20 @@ class Album_Ctrl extends My_Controller {
 			// 'q'=>$q,
 			'where'=>array(),
 		);
+		if($q){
+			$fields = array('albums.slug', 'albums.name', 'albums.tags', 'artists.name');
+			## Search 
+			$searchQuery = "";
+			$where = $q;
+			foreach ($fields as $field) {
+				if($searchQuery == ""){
+					$searchQuery = $field . " like '%".$where."%'";
+				}else{
+					$searchQuery.= " or ".$field." like '%".$where."%'";
+				}
+			}
+			$query['where']=$searchQuery;
+		}
 		$data 		= $this->albums->getAlbums($query);
 		$resp=array(
 			'message'=>"Success",
@@ -42,6 +57,8 @@ class Album_Ctrl extends My_Controller {
 
 		$this->response($resp);
 	}
+
+
 	public function getBySlug($slug)
 	{
 		$query=array(
