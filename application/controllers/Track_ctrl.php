@@ -48,47 +48,39 @@ class Track_Ctrl extends My_Controller {
 	  
 
       if(isset($_FILES['tracks'])){
-        $folder_name =  'uploads/bhajan';
+				$folder_name =  'uploads/bhajan';
+				if($artist_id){
+					$artist  = $this->artist->get(array('id'=> $artist_id ));
+					$artistName = trim($artist[0]['name']);
+					
+					if(count($artist)){
+						$folder_name.='/'.$artistName;
+					}
+					if($city_id){
+						$city  = $this->city->get(array('id'=> $city_id ));
+						if(count($city)){
+							$folder_name.='/'.$city[0]['name'];
+						}
+					}
+
+				}
+				if($language){
+						$folder_name.= '/'.$language;
+				}
         if($is_in_album){
           $album = $this->album->get(array('albums.id'=> $album_id ));
           if(count($album)){
 						$albumName = trim($album[0]['name']);
             $folder_name.= '/'.$albumName;
           }
-          if($artist_id){
-						$artist  = $this->artist->get(array('id'=> $artist_id ));
-						$artistName = trim($artist[0]['name']);
-						
-            if(count($artist)){
-              $folder_name.='/'.$artistName;
-            }
-          }
-        }else{
-					if($artist_id){
-						$artist  = $this->artist->get(array('id'=> $artist_id ));
-						$artistName = trim($artist[0]['name']);
-						
-            if(count($artist)){
-              $folder_name.='/'.$artistName;
-            }
-          }
         }
-        if($city_id){
-          $city  = $this->city->get(array('id'=> $city_id ));
-          if(count($city)){
-            $folder_name.='/'.$city[0]['name'];
-          }
-				}
+       
 			
 		if (!is_dir($folder_name)) {
       mkdir($folder_name, 0777, TRUE);	
 		}
+
       $fileName=array();
-      // $patterns = array();
-      // $patterns[0] = '/ /';
-      // $replacements = array();
-			// $replacements[0] = '';
-		
 					foreach ($_FILES as $key => $value) {
 						$fileName[]= $value['name'];
 					}

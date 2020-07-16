@@ -151,7 +151,7 @@ class Album_Ctrl extends My_Controller {
 
 
 	 public function uploadImage(){
-		$folder='uploads/albumCovers';
+		$folder='uploads/album covers';
 		$cover = "";
 
 		if (!is_dir($folder)) {
