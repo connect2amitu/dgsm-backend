@@ -21,6 +21,10 @@ $route['quotes'] = 'quote_ctrl';
 $route['quotes/(:any)'] = 'quote_ctrl/$1';
 $route['quotes/(:any)/(:any)'] = 'quote_ctrl/$1/$2';
 
+$route['quotes-subject'] = 'quote_ctrl/index_title';
+$route['quotes-subject/(:any)'] = 'quote_ctrl/$1';
+$route['quotes-subject/(:any)/(:any)'] = 'quote_ctrl/$1/$2';
+
 
 $route['tracks'] = 'track_ctrl';
 $route['tracks/(:any)'] = 'track_ctrl/$1';

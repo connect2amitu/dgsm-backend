@@ -144,7 +144,6 @@ class Album_Ctrl extends My_Controller {
 	public function getData(){
 		// POST data
 		$postData = $this->input->post();
-   
 		$data = $this->albums->filteredData($postData);
 		echo json_encode($data);
 	 }

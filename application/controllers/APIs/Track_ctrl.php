@@ -35,7 +35,7 @@ class Track_Ctrl extends My_Controller {
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 		$aZ  = $this->input->get('aZ', TRUE)?$this->input->get('aZ', TRUE):false;
 
-		$query = array('page'=>$page,'size'=>$size,'order'=>$order,'where'=>array('tracks.type'=>$content),'content'=>$content);
+		$query = array('page'=>$page,'size'=>$size,'order'=>'tracks.name '.$order ,'where'=>array('tracks.type'=>$content),'content'=>$content);
 		if($aZ){
 			$query['like']=array('tracks.name', $aZ, 'after');
 		}

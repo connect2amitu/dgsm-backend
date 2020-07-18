@@ -158,7 +158,7 @@ if ($Hour >= 5 && $Hour <= 11) {
                             <div class="sidebar-user-material-content">
                                 <a href="#"><img src="<?= base_url("assets/images/placeholder.jpg")?>" class="img-circle img-responsive"
                                         alt=""></a>
-                                <h6>Chauhan Amit</h6>
+                                <h6>Dr. Piyush</h6>
                                 <span class="text-size-small">Surat Gujarat</span>
                             </div>
                         </div>
@@ -184,6 +184,9 @@ if ($Hour >= 5 && $Hour <= 11) {
                                 <li class="<?= $this->uri->segment(1)==="artists"?"active":""?>"><a
                                         href="<?=base_url('/artists')?>"><i class="icon-width"></i>
                                         <span>Artist</span></a></li>
+                                <li class="<?= $this->uri->segment(1)==="quotes-subject"?"active":""?>"><a
+                                        href="<?=base_url('/quotes-subject')?>"><i class="icon-width"></i>
+                                        <span>Quotes Subject</span></a></li>
                                 <li class="<?= $this->uri->segment(1)==="quotes"?"active":""?>"><a
                                         href="<?=base_url('/quotes')?>"><i class="icon-width"></i>
                                         <span>Quotes</span></a></li>

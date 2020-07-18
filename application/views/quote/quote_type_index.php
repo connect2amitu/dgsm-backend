@@ -22,20 +22,19 @@
         <div class="page-header-content">
             <button type="button" onclick="deleteselected()" id="deleteselected" class="btn btn-rounded mb-20 btn-danger legitRipple"
                 style="display: none;">Delete</button>
-            <a href="<?= base_url('quotes/add'); ?>" class="btn btn-rounded mb-20 btn-success legitRipple">Add <i
+            <a href="<?= base_url('quotes-subject/add_title'); ?>" class="btn btn-rounded mb-20 btn-success legitRipple">Add <i
                     class="icon-add-to-list"></i> </a>
         </div>
     </div>
     <div class="row">
         <div class="panel panel-flat">
-        <form id="checkboxdata" method="POST" action="<?= base_url('quotes/deleteall'); ?>">
+        <form id="checkboxdata" method="POST" action="<?= base_url('quotes-subject/deleteall_title'); ?>">
         <table id='dTable' class='display dataTable'>
             <thead>
                 <tr>
                     <th><input type="checkbox" id="ckbCheckAll" name="select_all"></th>
                     <th>#</th>
-                    <th>Quote</th>
-                    <th>Artist</th>
+                    <th>Title</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -54,7 +53,7 @@ $(document).ready(function(){
     'serverMethod': 'post',
     "bAutoWidth": false,
     'stateSave': true,
-    'ajax': '<?=base_url('quotes/getData')?>',
+    'ajax': '<?=base_url('quotes-subject/getDataForTitle')?>',
     'columns': [
         { 
           targets: 1,
@@ -65,14 +64,13 @@ $(document).ready(function(){
           }
         },
         { data: 'id',"width": "5px"},
-        { data: 'quote'},
-        { data: 'artist_name',"width": "150px"},
+        { data: 'title'},
         {
           "targets": -1,
           "width": "100px",
           orderable: false, 
           "render": function ( data, type, row, meta ) {
-            var path = "<?= base_url('quotes/edit/');?>"+row.id
+            var path = "<?= base_url('quotes-subject/edit_title/');?>"+row.id
             return `
             <a style="margin-right:5px;color:green" href="`+path+`" class="legitRipple"> <i class="icon-pencil4 position-left"></i></a>
             <a style="margin-right:5px;color:red" href="javascript:;" class="legitRipple" id="`+ row.id +`" onclick="del(this.id);return false;"> <i class="icon-trash position-left"></i></a>
@@ -129,7 +127,7 @@ function del(id) {
     function(isConfirm){
       if (isConfirm) {
         $.ajax({
-          url: '<?= base_url('quotes/delete') ?>',
+          url: '<?= base_url('quotes-subject/delete_title') ?>',
           type: 'POST',
           data: { "id": id },
           success: function(data) {

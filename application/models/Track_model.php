@@ -232,9 +232,8 @@ class Track_Model extends My_Model
 		if(isset($query['like'])){
 			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
 		}
-		
 
-		$this->db->order_by('tracks.created', $query['order']);
+		$this->db->order_by($query['order']);
 		$this->db->limit($query['size'], $query['page']);
 		$records = $this->db->get($this->table)->result_array();
 		## Response

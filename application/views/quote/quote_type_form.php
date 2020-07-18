@@ -2,77 +2,32 @@
 <?php
 $formData=false;
 $btnName="Add";
-
 if(isset($data)){
     $formData=$data[0];
-    $redirect='quotes/edit/'.$formData['id'];
+    $redirect='quotes/edit_title/'.$formData['id'];
     $btnName="Update";
 }else{
-    $redirect='quotes/add';
+    $redirect='quotes/add_title';
 }
 ?>
 <form class="form-horizontal form-validate-jquery" method="POST" action="<?= base_url($redirect); ?>">
     <div class="panel panel-flat">
         <div class="panel-heading">
-            <h5 class="panel-title"><?= $btnName ?> quote</h5>
+            <h5 class="panel-title"><?= $btnName ?> quote title</h5>
         </div>
 
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label class="col-lg-1 control-label">Quote: <span class="text-danger">*</span></label>
+                        <label class="col-lg-1 control-label">Title: <span class="text-danger">*</span></label>
                         <div class="col-lg-11">
-                            <textarea style="resize: none;" rows="3" cols="200" autocomplete="off" required="required" autofocus name="quote" class="form-control" placeholder="Enter Quote"><?php if($formData) echo $formData['quote']; ?></textarea>
+                            <input autocomplete="off" required="required" autofocus name="title" class="form-control" value="<?php if($formData) echo $formData['title']; ?>" placeholder="Enter Title" />
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-lg-1 control-label">Titles: <span class="text-danger">*</span></label>
-                        <div class="col-lg-3">
-
-                            <select id="quote_title_id" name="quote_title_id" class="select-search" required="required">
-                                <option value="-1" disabled selected>-Select title-</option>
-                                <?php
-													foreach ($titles as $row) {
-													?>
-                                <option <?= $formData && $formData['quote_title_id']===$row['id']?"selected":""; ?>
-                                    value="<?=$row['id']?>"><?=$row['title']?></option>
-                                <?php
-													}
-							?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="col-lg-1 control-label">Artist: <span class="text-danger">*</span></label>
-                        <div class="col-lg-3">
-
-                            <select id="artist_id" name="artist_id" class="select-search" required="required">
-                                <option value="-1" disabled selected>-Select Artist-</option>
-                                <?php
-													foreach ($artists as $row) {
-													?>
-                                <option <?= $formData && $formData['artist_id']===$row['id']?"selected":""; ?>
-                                    value="<?=$row['id']?>"><?=$row['name']?></option>
-                                <?php
-													}
-							?>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="text-right">
                 <button type="submit" class="btn bg-teal-400 access-multiple-open legitRipple"><?= $btnName; ?>
                     <i class="icon-circle-right2 position-right"></i></button>
