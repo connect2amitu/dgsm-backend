@@ -84,36 +84,31 @@ class Vani_Ctrl extends My_Controller {
 		// }
 
 		$folder_name =  'uploads/vani';
-        if($is_in_album){
-          $album = $this->album->get(array('albums.id'=> $album_id ));
-          if(count($album)){
-						$albumName = trim($album[0]['name']);
-            $folder_name.= '/'.$albumName;
-          }
-          if($artist_id){
-						$artist  = $this->artist->get(array('id'=> $artist_id ));
-						$artistName = trim($artist[0]['name']);
-						
-            if(count($artist)){
-              $folder_name.='/'.$artistName;
-            }
-          }
-        }else{
-					if($artist_id){
-						$artist  = $this->artist->get(array('id'=> $artist_id ));
-						$artistName = trim($artist[0]['name']);
-						
-            if(count($artist)){
-              $folder_name.='/'.$artistName;
-            }
-          }
-        }
-        if($city_id){
-          $city  = $this->city->get(array('id'=> $city_id ));
-          if(count($city)){
-            $folder_name.='/'.$city[0]['name'];
-          }
+		if($artist_id){
+			$artist  = $this->artist->get(array('id'=> $artist_id ));
+			$artistName = trim($artist[0]['name']);
+			
+			if(count($artist)){
+				$folder_name.='/'.$artistName;
+			}
+			if($city_id){
+				$city  = $this->city->get(array('id'=> $city_id ));
+				if(count($city)){
+					$folder_name.='/'.$city[0]['name'];
 				}
+			}
+		}
+		if($language){
+			$folder_name.= '/'.$language;
+		}
+		if($is_in_album){
+			$album = $this->album->get(array('albums.id'=> $album_id ));
+			if(count($album)){
+				$albumName = trim($album[0]['name']);
+				$folder_name.= '/'.$albumName;
+			}
+		}
+        
 			
 		if (!is_dir($folder_name)) {
       mkdir($folder_name, 0777, TRUE);	
