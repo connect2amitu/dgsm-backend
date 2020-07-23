@@ -31,4 +31,21 @@ class Quote_Ctrl extends My_Controller {
 		);
 		$this->response($resp);	
 	}
+	
+	public function getQuoteTopics(){
+		$slug   = $this->input->get('slug', TRUE)?$this->input->get('slug', TRUE):"";
+		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
+		$query = array('where'=>array('slug'=>$slug),'columnName'=>'quotes.created','columnSortOrder'=>$order);
+
+		$data 		= $this->quote->getQuotesTitleDataForMainCategory($query);
+		
+		$resp=array(
+			'message'=>"Success",
+			'data'=>$data,
+			'status'=>200
+		);
+		$this->response($resp);	
+
+	
+	}
 }

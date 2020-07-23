@@ -50,40 +50,7 @@ class Vani_Ctrl extends My_Controller {
 			$is_in_album 					=   $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0;
 			
       if(isset($_FILES['tracks'])){
-        
-    //     $folder_name =  'uploads';
-    //     if($is_in_album){
-    //       $album = $this->album->get(array('albums.id'=> $album_id ));
-    //       if(count($album)){
-    //         $folder_name.= '/'.$album[0]['name'];
-    //       }
-    //       if($artist_id){
-    //         $artist  = $this->artist->get(array('id'=> $artist_id ));
-    //         if(count($artist)){
-    //           $folder_name.='/'.$artist[0]['name'];
-    //         }
-    //       }
-    //     }else{
-    //         if($artist_id){
-    //           $artist  = $this->artist->get(array('id'=> $artist_id ));
-    //           if(count($artist)){
-    //             $folder_name.='/'.$artist[0]['name'];
-    //           }
-    //         }
-
-    //     }
-    //     if($city_id){
-    //       $city  = $this->city->get(array('id'=> $city_id ));
-    //       if(count($city)){
-    //         $folder_name.='/'.$city[0]['name'];
-    //       }
-    //     }
-		// if (!is_dir($folder_name)) {
-    //       mkdir($folder_name, 0777, TRUE);
-     
-		// }
-
-		$folder_name =  'uploads/vani';
+  	$folder_name =  'uploads/vani';
 		if($artist_id){
 			$artist  = $this->artist->get(array('id'=> $artist_id ));
 			$artistName = trim($artist[0]['name']);
@@ -114,6 +81,8 @@ class Vani_Ctrl extends My_Controller {
       mkdir($folder_name, 0777, TRUE);	
 		}
 
+			
+
       $fileName=array();
       $patterns = array();
       $patterns[0] = '/ /';
@@ -124,8 +93,7 @@ class Vani_Ctrl extends My_Controller {
 			// }
 			foreach ($_FILES as $key => $value) {
         $fileName[]= $value['name'];
-      }
-	  
+			}
 					$config['upload_path']   = $folder_name;
 					$config['allowed_types'] = '*';
 					$config['overwrite']     = 'false';

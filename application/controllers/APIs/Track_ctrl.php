@@ -31,7 +31,7 @@ class Track_Ctrl extends My_Controller {
 		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
 		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
 		$content   = $this->input->get('content', TRUE)?$this->input->get('content', TRUE):10;
-		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
+		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
 		$lang  = $this->input->get('lang', TRUE)?$this->input->get('lang', TRUE):'hindi';
 		$aZ  = $this->input->get('aZ', TRUE)?$this->input->get('aZ', TRUE):false;
 

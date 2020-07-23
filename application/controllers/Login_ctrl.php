@@ -29,17 +29,23 @@ class Login_Ctrl extends My_Controller {
 	public function checkLogin()
 	{
 		$data = array(
-						'email'=>$this->input->post('email', true),
-						'password'=>$this->input->post('password', true)
+						'email'=>$this->input->post('email', true)
+						// 'password'=>password_hash($this->input->post('password', true), PASSWORD_BCRYPT)
 					);
 		$data = $this->login->login('admin', $data);
 
+		
 		if (count($data) == 1)
 		{
-			$array = array('admin_id' => ucfirst($data[0]['name']) );
-			$this->session->set_userdata( $array );
-			$this->session->set_flashdata('success', 'Login Success');
-			redirect(base_url());
+			if (password_verify($this->input->post('password', true), $data[0]['password'])) {
+				$array = array('admin_id' => ucfirst($data[0]['name']) );
+				$this->session->set_userdata( $array );
+				$this->session->set_flashdata('success', 'Login Success');
+				redirect(base_url());
+			}else {
+				$this->session->set_flashdata('error', 'Login Failed');
+				redirect(base_url('login'));				
+			}
 		}
 		else
 		{

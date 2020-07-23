@@ -188,6 +188,7 @@ class Quote_Model extends My_Model
 		## Total number of records without filtering
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
+		$this->db->join('quotes_topic', 'quotes_topic.id = quotes.quote_title_id','left');
 		if($searchQuery != '')
 		$this->db->where($searchQuery);
 		$records = $this->db->get($this->table)->result();
@@ -196,6 +197,7 @@ class Quote_Model extends My_Model
 		## Total number of record with filtering
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
+		$this->db->join('quotes_topic', 'quotes_topic.id = quotes.quote_title_id','left');
 
 		if($searchQuery != '')
 		   $this->db->where($searchQuery);
@@ -203,8 +205,9 @@ class Quote_Model extends My_Model
 		$totalRecordwithFilter = $records[0]->allcount;
    
 		## Fetch records
-		$this->db->select('quotes.*,artists.id as artist_id,artists.name as artist_name,artists.avatar as artist_avatar');
+		$this->db->select('quotes.*,quotes_topic.title as quotes_title,artists.id as artist_id,artists.name as artist_name,artists.avatar as artist_avatar');
 		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
+		$this->db->join('quotes_topic', 'quotes_topic.id = quotes.quote_title_id','left');
 
 		if($searchQuery != '')
 		   $this->db->where($searchQuery);
@@ -283,5 +286,19 @@ class Quote_Model extends My_Model
 		return $response;
 	}
 
+
+	function getQuotesTitleDataForMainCategory($query)
+	{
+
+		$this->db->select('title,quotes.quote_title_id,artists.*');
+		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
+		$this->db->join('quotes_topic', 'quotes_topic.id = quotes.quote_title_id','left');
+	  $this->db->where($query['where']);
+		$this->db->order_by($query['columnName'], $query['columnSortOrder']);
+		$this->db->group_by('quote_title_id');
+		
+		$records = $this->db->get($this->table)->result();
+		return $records;
+	}
 
 }

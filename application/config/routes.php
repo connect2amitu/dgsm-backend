@@ -50,6 +50,7 @@ $route['api/browse/(:any)'] = 'APIs/browse_ctrl/$1';
 
 $route['api/quote'] = 'APIs/quote_ctrl';
 $route['api/quote/(:any)'] = 'APIs/quote_ctrl/$1';
+$route['api/quote/(:any)/(:any)'] = 'APIs/quote_ctrl/$1/$2';
 
 $route['api/users'] = 'APIs/user_ctrl';
 $route['api/users/(:any)'] = 'APIs/user_ctrl/$1';
