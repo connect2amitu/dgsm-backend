@@ -81,7 +81,6 @@ class Vani_Ctrl extends My_Controller {
       mkdir($folder_name, 0777, TRUE);	
 		}
 
-			
 
       $fileName=array();
       $patterns = array();
@@ -97,15 +96,19 @@ class Vani_Ctrl extends My_Controller {
 					$config['upload_path']   = $folder_name;
 					$config['allowed_types'] = '*';
 					$config['overwrite']     = 'false';
-					$config['max_size']      = 100000;
-					$config['max_width']     = 100000;
-					$config['max_height']    = 100000;
+					$config['max_size']      = 1000000;
+					$config['max_width']     = 1000000;
+					$config['max_height']    = 1000000;
 					$config['encrypt_name']    = TRUE;
 					$config['file_name']    = $fileName[0];
 					$this->load->library('upload', $config);
         
 					if (!$this->upload->do_multi_upload('tracks')) {
 						 $error = array('error' => $this->upload->display_errors());
+						 echo '<pre>';
+						 print_r($error);
+						 echo '</pre>';
+						 die;
 					}
 					else {
 						$uploded_files_array = $this->upload->get_multi_upload_data();
@@ -126,6 +129,7 @@ class Vani_Ctrl extends My_Controller {
 							'url'=>$folder_name.'/'.$file['file_name'],
 							);
 						}
+					
 						 if($this->track->save_many($insert_array)){
 							$this->session->set_flashdata('success', 'Record added');
 						}else{

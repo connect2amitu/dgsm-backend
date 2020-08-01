@@ -58,7 +58,7 @@ class Album_Ctrl extends My_Controller {
 			}else{
 				$this->session->set_flashdata('error', 'Record not added');
 			}
-			redirect(base_url('/albums'));
+			redirect(base_url('/albums/add'));
 		}
 	}
 

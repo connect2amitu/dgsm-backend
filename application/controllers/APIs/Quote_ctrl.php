@@ -12,21 +12,57 @@ class Quote_Ctrl extends My_Controller {
 		$this->load->model('quote_model','quote');
 	}
 	
+
+/**
+	 * Function that groups an array of associative arrays by some key.
+	 * 
+	 * @param {String} $key Property to sort by.
+	 * @param {Array} $data Array that stores multiple associative arrays.
+	 */
+	function group_by($key, $data) {
+		$result = array();
+
+		foreach($data as $val) {
+				if(array_key_exists($key, $val)){
+						$result[$val[$key]][] = $val;
+				}else{
+						$result[""][] = $val;
+				}
+		}
+
+		return $result;
+	}
+
 	public function index()
 	{
-		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
-		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'DESC';
 		$slug   = $this->input->get('slug', TRUE)?$this->input->get('slug', TRUE):"";
 
 		
-		$query = array('start'=>$page,'draw'=>null,'columnIndex'=>null,'columnName'=>'quotes.created','columnSortOrder'=>$order,'searchValue'=>'','rowperpage'=>$size,'order'=>$order,'where'=>array('artists.slug'=>$slug));
-		$data 		= $this->quote->getQuotesData($query);
+		$query = array('columnName'=>'quotes.created','columnSortOrder'=>$order,'order'=>$order,'where'=>array('artists.slug'=>$slug));
+		$data 		= $this->quote->getQuotesDataForMainCategory($query);
+		
+
+		$returnData = null;
+        foreach ($data as $row) {
+            if (!isset($returnData[$row['title']])) {
+                $returnData[$row['title']]= [
+                    'quotes' => [
+                        [
+                            'quote' => $row['quote']
+                        ],
+                    ]
+                ];
+            } else {
+                $returnData[$row['title']]['quotes'][] = [
+                    'quote' => $row['quote']
+                ];
+            }
+        } 
+				
 		$resp=array(
 			'message'=>"Success",
-			'data'=>$data['aaData'],
-			'total'=>$data['iTotalRecords'],
-			'totalPages'=>ceil($data['iTotalRecords']/$size),
+			'data'=>$returnData,
 			'status'=>200
 		);
 		$this->response($resp);	

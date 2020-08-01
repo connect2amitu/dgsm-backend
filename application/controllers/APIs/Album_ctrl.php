@@ -22,16 +22,21 @@ class Album_Ctrl extends My_Controller {
 		$page   = $this->input->get('page', TRUE)?$this->input->get('page', TRUE):0;
 		$size   = $this->input->get('size', TRUE)?$this->input->get('size', TRUE):10;
 		$order  = $this->input->get('order', TRUE)?$this->input->get('order', TRUE):'ASC';
+		$type  = $this->input->get('type', TRUE)?$this->input->get('type', TRUE):'all';
 		$q  = $this->input->get('q', TRUE)?$this->input->get('q', TRUE):'';
-
 		
 		$query=array(
 			'start'=>$page,
 			'rowperpage'=>$size,
-			'order'=>array('columnName'=>'name', 'columnSortOrder'=>$order),
+			'order'=>"albums.artist_id ASC, albums.name ASC",
 			// 'q'=>$q,
-			'where'=>array(),
+			'where'=>array()
+			
 		);
+		if($type!=="all"){
+			$query['where'] = array('albums.type'=>$type);
+		}
+		
 		if($q){
 			$fields = array('albums.slug', 'albums.name', 'albums.tags', 'artists.name');
 			## Search 
@@ -47,6 +52,7 @@ class Album_Ctrl extends My_Controller {
 			$query['where']=$searchQuery;
 		}
 		$data 		= $this->albums->getAlbums($query);
+
 		$resp=array(
 			'message'=>"Success",
 			'data'=>$data['data'],
@@ -95,9 +101,16 @@ class Album_Ctrl extends My_Controller {
 			$query=array(
 				'start'=>$page,
 				'rowperpage'=>$size,
-				'order'=>array('columnName'=>'name', 'columnSortOrder'=>$order),
-				'where'=>array('artist_id'=>$artists['id'],'albums.type'=>$type),
+				'order'=>"albums.artist_id ASC, albums.name ASC",
+				'where'=>array('albums.type'=>$type),
+				'like'=>array('tags',$artists['name'] , 'both')
 			);
+			// $query=array(
+			// 	'start'=>$page,
+			// 	'rowperpage'=>$size,
+			// 	'order'=>array('columnName'=>'name', 'columnSortOrder'=>$order),
+			// 	'where'=>array('artist_id'=>$artists['id'],'albums.type'=>$type),
+			// );
 			$data 		= $this->albums->getAlbums($query);
 			$resp=array(
 				'message'=>"Success",

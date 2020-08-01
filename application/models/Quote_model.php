@@ -286,6 +286,7 @@ class Quote_Model extends My_Model
 		return $response;
 	}
 
+		
 
 	function getQuotesTitleDataForMainCategory($query)
 	{
@@ -298,6 +299,20 @@ class Quote_Model extends My_Model
 		$this->db->group_by('quote_title_id');
 		
 		$records = $this->db->get($this->table)->result();
+		return $records;
+	}
+	
+	function getQuotesDataForMainCategory($query)
+	{
+
+		$this->db->select('title,quotes.*,artists.*,quotes_topic.*');
+		$this->db->join('artists', 'artists.id = quotes.artist_id','left');
+		$this->db->join('quotes_topic', 'quotes_topic.id = quotes.quote_title_id','left');
+	  $this->db->where($query['where']);
+		$this->db->order_by($query['columnName'], $query['columnSortOrder']);
+		// $this->db->group_by('quote_title_id');
+		
+		$records = $this->db->get($this->table)->result_array();
 		return $records;
 	}
 

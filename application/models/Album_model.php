@@ -102,12 +102,18 @@ class Album_Model extends My_Model
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		$this->db->where($query['where']);
+		if(isset($query['like'])){
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
 		$records = $this->db->get($this->table)->result();
 		$totalRecords = $records[0]->allcount;
 		
 		$this->db->select('count(*) as allcount');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		$this->db->where($query['where']);
+		if(isset($query['like'])){
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
 		$records = $this->db->get($this->table)->result();
 		$totalRecordwithFilter = $records[0]->allcount;
 		
@@ -115,9 +121,16 @@ class Album_Model extends My_Model
 		$this->db->select('albums.*,albums.type as albums_type,artists.name as artist_name,artists.avatar as artist_avatar,artists.id as artist_id');
 		$this->db->join('artists', 'albums.artist_id = artists.id','left');
 		$this->db->where($query['where']);
-		$this->db->order_by($query['order']['columnName'], $query['order']['columnSortOrder']);
+		if(isset($query['like'])){
+			$this->db->like($query['like'][0],$query['like'][1],$query['like'][2]);
+		}
+		$this->db->order_by($query['order']);
 		$this->db->limit($query['rowperpage'], $query['start']);
 		$records = $this->db->get($this->table)->result();
+		// echo '<pre>';
+		// print_r($this->db->last_query());
+		// echo '</pre>';
+		// die;
    
 		## Response
 		$response = array(
