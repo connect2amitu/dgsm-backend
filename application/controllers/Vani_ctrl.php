@@ -125,7 +125,7 @@ class Vani_Ctrl extends My_Controller {
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
 							'size'=> $file['file_size'],
-							'name'=>$file['client_name'],
+							'name'=>pathinfo($file['client_name'], PATHINFO_FILENAME),
 							'url'=>$folder_name.'/'.$file['file_name'],
 							);
 						}
@@ -143,7 +143,7 @@ class Vani_Ctrl extends My_Controller {
 
 	public function edit($id)
 	{
-		$condition=array('albums.id' => $id);
+		$condition=array('tracks.id' => $id);
 		$this->data['title'] = "Edit Track";
 
 		if($this->input->method()=="get"){

@@ -25,7 +25,29 @@ if(searchParams.has('album')){
     $("#album_section").fadeIn(500);
     $('#album_id option[value='+albumId+']').prop('selected', 'selected').change();
 }else{
-  $("#city_section,#album_section").hide();
+//   $("#city_section").hide();
+  <?php
+if($formData && $formData['album_id']){
+    ?>
+        $("#album_section").fadeIn(500);
+    <?php
+}else{
+    ?>
+    $("#album_section").hide();
+    <?php
+}
+?>
+  <?php
+if($formData && $formData['city_id']){
+    ?>
+        $("#city_section").fadeIn(500);
+    <?php
+}else{
+    ?>
+    $("#city_section").hide();
+    <?php
+}
+?>
 } 
   $('#artist_id').on('change', function() {
     var selectedItem =  $( "#artist_id option:selected" ).text();
@@ -54,23 +76,55 @@ $('#is_in_album').change(function() {
 
         <div class="panel-body">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="col-lg-3 control-label">Tracks: <span class="text-danger">*</span></label>
-                        <div class="col-lg-9">
-                            <input type="file" name="tracks[]" multiple required="required" />
+            
+            <?php
+                if(!$formData){
+                    ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Tracks: <span class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <input type="file" name="tracks[]" multiple required="required" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <?php
+                }else{
+                    ?>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label">Name: <span class="text-danger">*</span></label>
+                                <div class="col-lg-9">
+                                    <input type="text" name="name" class="form-control" required="required" value="<?php echo pathinfo($formData['name'], PATHINFO_FILENAME); ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+
+            ?>
+            
             
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Include In Album?</label>
                         <div class="col-lg-9">
-                            <input type="checkbox" name="is_in_album" value="1"  id="is_in_album" />
+                            <?php
+                                if($formData && $formData['is_in_album']==1){
+                                    ?>
+                                    <input type="checkbox" name="is_in_album" checked value="1"  id="is_in_album" />
+                                    <?php
+                                }else{
+                                    ?>
+                                    <input type="checkbox" name="is_in_album" value="1"  id="is_in_album" />
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -103,10 +157,10 @@ $('#is_in_album').change(function() {
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Language: <span class="text-danger">*</span></label>
                         <div class="col-lg-9">
-                            <label for="hindi">Hindi </label><input type="radio" name="language" id="hindi" value="hindi" />&nbsp;
-                            <label for="sindhi">Sindhi </label><input type="radio" name="language" id="sindhi" value="sindhi" />&nbsp;
-                            <label for="punjabi">Punjabi </label><input type="radio" name="language" id="punjabi" value="punjabi" />&nbsp;
-                            <label for="english">English </label><input type="radio" name="language" id="english" value="english" />&nbsp;
+                            <label for="hindi">Hindi </label><input type="radio" <?=(isset($formData['language']) && $formData['language']==="hindi" )?"checked":"";?> name="language" id="hindi" value="hindi" />&nbsp;
+                            <label for="sindhi">Sindhi </label><input type="radio" <?=(isset($formData['language']) && $formData['language']==="sindhi" )?"checked":"";?> name="language" id="sindhi" value="sindhi" />&nbsp;
+                            <label for="punjabi">Punjabi </label><input type="radio" <?=(isset($formData['language']) && $formData['language']==="punjabi" )?"checked":"";?> name="language" id="punjabi" value="punjabi" />&nbsp;
+                            <label for="english">English </label><input type="radio" <?=(isset($formData['language']) && $formData['language']==="english" )?"checked":"";?> name="language" id="english" value="english" />&nbsp;
                         </div>
                     </div>
                 </div>

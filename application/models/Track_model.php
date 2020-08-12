@@ -223,7 +223,7 @@ class Track_Model extends My_Model
 		$records = $this->db->get($this->table)->result();
 		$totalRecordwithFilter = $records[0]->allcount;
 
-		$this->db->select('tracks.*,albums.*,albums.type as album_type,tracks.type as type,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as album_slug,albums.cover as album_cover,artists.name as artist_name,artists.avatar as cover');
+		$this->db->select('tracks.*,albums.*,albums.type as album_type,tracks.type as type,tracks.id as id,cities.name as city_name,tracks.name as name,albums.name as album_name,albums.slug as album_slug,albums.cover as cover,artists.name as artist_name');
 		$this->db->join('artists', 'tracks.artist_id = artists.id','left');
 		$this->db->join('albums', 'tracks.album_id = albums.id','left');
 		$this->db->join('cities', 'tracks.city_id = cities.id','left');

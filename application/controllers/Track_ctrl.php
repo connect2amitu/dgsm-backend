@@ -115,7 +115,7 @@ class Track_Ctrl extends My_Controller {
 							'other_artist_name'=> $other_artist_name,
 							'is_in_album'=> $is_in_album,
 							'size'=> $file['file_size'],
-							'name'=>$file['client_name'],
+							'name'=>pathinfo($file['client_name'], PATHINFO_FILENAME),
 							'url'=>$folder_name.'/'.$file['file_name'],
 							);
 						}
@@ -135,19 +135,30 @@ class Track_Ctrl extends My_Controller {
 
 	public function edit($id)
 	{
-		$condition=array('albums.id' => $id);
+		$condition=array('tracks.id' => $id);
 		$this->data['title'] = "Edit Track";
 
 		if($this->input->method()=="get"){
 			$this->data['data']= $this->track->get($condition);
 			$this->data['artists'] 		= $this->artist->get();
+			$this->data['albums'] 		= $this->album->get(array('albums.type'=>'bhajan'));
+			$this->data['cities'] 		= $this->city->get();
 			$this->data['content']=$this->load->view('track/form',$this->data,true);
 			$this->load->view('layout/index',$this->data);
 		}else{
 			$this->data=array(
-				'name'				=>	$this->input->post('name', TRUE),
-				'artist_id'		=>	$this->input->post('artist_id', TRUE)
+				'name'							=> $this->input->post('name', TRUE),
+				'artist_id'					=> $this->input->post('artist_id', TRUE),
+				'city_id'						=> $this->input->post('city_id', TRUE),
+				'language'					=> $this->input->post('language', TRUE),
+				'is_in_album'				=> $this->input->post('is_in_album', TRUE)?$this->input->post('is_in_album', TRUE):0,
+				'name'							=> $this->input->post('name', TRUE),
+				'other_artist_name'	=> $this->input->post('other_artist_name', TRUE)
 			);
+			
+			if($this->input->post('is_in_album', TRUE)){
+				$this->data['album_id'] = $this->input->post('album_id', TRUE);
+			}
 
 			if($this->track->edit($this->data,$condition)){
 				$this->session->set_flashdata('success', 'Record updated');
